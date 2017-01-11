@@ -113,6 +113,7 @@ ensureHG() {
     local hgPath="${cache}/hg/${hgVersion}"
     if [ -x "${hgPath}/bin/hg" ]; then
         step "Using hg v${hgVersion}"
+        step "Using hg OK"
     else
         rm -rf "${cache}/hg"
         mkdir -p "${hgPath}"
@@ -268,6 +269,7 @@ warnPackageSpecOverride() {
 setupGOPATH() {
     local name="${1}"
     local t="$(mktemp -d)"
+    step "in setupGOPATH"
 
     if [ "${GO_SETUP_GOPATH_IN_IMAGE}" = "true" ]; then
         mv -t ${t} ${build}/*
@@ -391,10 +393,13 @@ case "${TOOL}" in
 
         # Do this before setupGOPATH as we need ${name} set first
         cd "${build}"
+        step "before glide name"
         name=$(glide name 2>/dev/null)
 
+        step "before setupGOPATH"
         eval "$(setupGOPATH ${name})"
 
+        step "before handleDefaultPkgSpec"
         pkgs=${GO_INSTALL_PACKAGE_SPEC:-"default"}
         handleDefaultPkgSpec
 
