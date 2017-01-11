@@ -394,6 +394,7 @@ case "${TOOL}" in
         # Do this before setupGOPATH as we need ${name} set first
         cd "${build}"
         step "before glide name"
+        glide name
         name=$(glide name 2>/dev/null)
 
         step "before setupGOPATH"
