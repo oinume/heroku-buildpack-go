@@ -402,7 +402,7 @@ case "${TOOL}" in
         glide name
         name=$(glide name 2>/dev/null)
 
-        step "before setupGOPATH"
+        step "before setupGOPATH: name=${name}"
         eval "$(setupGOPATH ${name})"
 
         step "before handleDefaultPkgSpec"
